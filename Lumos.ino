@@ -12,8 +12,8 @@ This example may be copied under the terms of the MIT license, see the LICENSE f
 
 // OctoWS2811 settings
 const int numLedsPerUniverse = 150;
-const int ledsPerStrip = 5*60; // change for your setup
-const byte numStrips= 4; // change for your setup
+const int ledsPerStrip = 5*60*2; // change for your setup
+const byte numStrips= 2; // change for your setup
 const int numLeds = ledsPerStrip * numStrips;
 const int numberOfChannels = numLeds * 3; // Total number of channels you want to receive (1 led = 3 channels)
 DMAMEM int displayMemory[ledsPerStrip*6];
@@ -71,7 +71,7 @@ void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* d
   }
 
   // read universe and put into the right part of the display buffer
-  for (int i = 0; i < length / 3; i++)
+  for (int i = 0; i < numLedsPerUniverse; i++)
   {
     int led = i + (universe - startUniverse) * numLedsPerUniverse;
     if (led < numLeds)
